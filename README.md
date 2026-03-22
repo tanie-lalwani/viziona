@@ -1,4 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Viziona
+
+A web-based immersive simulator for experiencing your ideal wealthy lifestyle.
+
+## Tech Stack
+
+- Next.js (App Router, TypeScript)
+- React, Zustand (state)
+- React Three Fiber, Drei, Three.js (3D)
+- Framer Motion, GSAP (animations)
+- Firebase (auth, DB)
+
+## Features
+
+- Financial identity simulation
+- Interactive lifestyle modules (shopping, travel, home, daily life)
+- 3D immersive environment
+- Emotional reinforcement (micro-interactions, affirmations)
+- Fast, smooth, and scalable
 
 ## Getting Started
 
