@@ -43,3 +43,5 @@ next-env.d.ts
 # manifestations
 manifestations.txt
 
+
+.vercel
