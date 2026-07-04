@@ -15,6 +15,13 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { Orbitron } from 'next/font/google';
+
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  variable: '--font-orbitron',
+});
 
 const GlobeScene = dynamic(() => import('@/experience/components/GlobeScene'), { ssr: false });
 
@@ -72,6 +79,7 @@ export default function EntryPortal() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false);
   const [isXR, setIsXR] = useState(false);
+  const [introComplete, setIntroComplete] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -102,7 +110,7 @@ export default function EntryPortal() {
 
       {/* 3D Unified Scene (covers background, fixed position) */}
       <div className="fixed inset-0 pointer-events-auto overflow-hidden z-0">
-        <GlobeScene scrollProgress={scrollProgress} isXR={isXR} />
+        <GlobeScene scrollProgress={scrollProgress} isXR={isXR} onLoadComplete={() => setIntroComplete(true)} />
       </div>
 
       {/* Subtle deep nebula color glows on top of 3D stars */}
@@ -112,36 +120,29 @@ export default function EntryPortal() {
       </div>
 
       {/* SECTION 1: HERO VIEW */}
-      <section className="relative h-screen w-full flex flex-col justify-center items-center text-center px-6 z-20 pointer-events-none">
+      <section className="relative h-screen w-full flex flex-col justify-start pt-[18vh] items-center text-center px-6 z-20 pointer-events-none">
         
         {/* Section 1 Top Right Indicator */}
         <div className="absolute top-6 right-6 text-stone-500 font-mono text-xs uppercase tracking-widest pointer-events-auto select-none">
           // Section 1
         </div>
 
-        {/* Commented out Hero Content 
-        <div className="flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/5 text-amber-400 text-xs font-semibold tracking-wider uppercase mb-8 shadow-[0_0_15px_rgba(245,158,11,0.1)] pointer-events-auto animate-bounce">
-            ✨ Cosmic Creator Panel ✨
-          </div>
+        {/* Hero Content */}
+        {introComplete && (
+          <div className="flex flex-col items-center animate-fadeIn">
+            <h1 className={`${orbitron.className} text-4xl md:text-7xl font-black tracking-[0.2em] leading-none text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]`}>
+              It's your world
+            </h1>
+            <h2 className={`${orbitron.className} text-3xl md:text-6xl font-black tracking-[0.2em] mt-6 text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]`}>
+              We're just living in it
+            </h2>
 
-          <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-            "It's your world.
-          </h1>
-          <h2 className="text-3xl md:text-6xl font-extrabold tracking-tight mt-2 bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(245,158,11,0.25)]">
-            We're just living in it."
-          </h2>
-          
-          <p className="mt-6 text-sm md:text-lg text-stone-400 max-w-xl font-light leading-relaxed">
-            The stars align at your coordinate nodes. Scroll down to deploy your reality vectors.
-          </p>
-
-          <div className="absolute bottom-16 flex flex-col items-center gap-1.5 animate-bounce">
-            <span className="text-[10px] font-bold tracking-widest text-amber-500/60 uppercase">Scroll Down</span>
-            <span className="text-base text-amber-500">↓</span>
+            <div className="absolute bottom-16 flex flex-col items-center gap-1.5 animate-bounce select-none pointer-events-none">
+              <span className="text-[9px] font-black tracking-[0.3em] text-white/40 uppercase">Scroll Down</span>
+              <span className="text-xs text-white/50">↓</span>
+            </div>
           </div>
-        </div>
-        */}
+        )}
       </section>
 
       {/* SECTION 2: EXPLORATION VIEW */}
