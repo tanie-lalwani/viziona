@@ -10,6 +10,7 @@
  * HTML contents remain commented out to keep the focus entirely on the depth 
  * and parallax of the 3D celestial sphere space.
  */
+// Force compilation reload trigger
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
