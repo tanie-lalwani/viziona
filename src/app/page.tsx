@@ -15,6 +15,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import Lenis from 'lenis';
 
 const GlobeScene = dynamic(() => import('@/experience/components/GlobeScene'), { ssr: false });
 
@@ -76,6 +77,24 @@ export default function EntryPortal() {
   useEffect(() => {
     setMounted(true);
 
+    // Initialize Lenis smooth scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 2.0,
+    });
+
+    let rafId: number;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
+
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (totalHeight <= 0) return;
@@ -83,7 +102,12 @@ export default function EntryPortal() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
   if (!mounted) return null;
@@ -239,6 +263,23 @@ export default function EntryPortal() {
         }
         .animate-fadeIn {
           animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        /* Lenis smooth scrolling rules */
+        html.lenis, html.lenis body {
+          height: auto;
+        }
+        .lenis.lenis-smooth {
+          scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+          overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+          overflow: hidden;
+        }
+        .lenis.lenis-smooth iframe {
+          pointer-events: none;
         }
       `}</style>
 
