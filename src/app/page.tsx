@@ -85,9 +85,11 @@ export default function EntryPortal() {
     setMounted(true);
 
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight <= 0) return;
-      setScrollProgress(window.scrollY / totalHeight);
+      const vh = window.innerHeight;
+      if (vh <= 0) return;
+      // Pass the raw scroll progress in viewport terms (scrollY / vh).
+      // GlobeScene will handle mapping specific ranges (e.g. still in Section 2-3, moving out in Section 3-4).
+      setScrollProgress(window.scrollY / vh);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -174,6 +176,44 @@ export default function EntryPortal() {
           </div>
         </div>
         */}
+      </section>
+
+      {/* SECTION 3: STILLNESS IN MOTION */}
+      <section className="relative h-screen w-full flex flex-col justify-center items-center text-center px-6 z-20 pointer-events-none">
+        
+        {/* Section 3 Top Right Indicator */}
+        <div className="absolute top-6 right-6 text-stone-500 font-mono text-xs uppercase tracking-widest pointer-events-auto select-none">
+          // Section 3
+        </div>
+
+        {/* Section 3 Content */}
+        <div className="flex flex-col items-center animate-fadeIn">
+          <h2 className={`${orbitron.className} text-2xl md:text-5xl font-black tracking-[0.15em] text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]`}>
+            Cosmic Equilibrium
+          </h2>
+          <p className="text-xs md:text-sm text-stone-400 font-light mt-4 max-w-md mx-auto leading-relaxed tracking-wider">
+            The globe rests in a stationary orbit. Explore the interactive vectors on its surface in perfect stability.
+          </p>
+        </div>
+      </section>
+
+      {/* SECTION 4: DEEP COSMOS */}
+      <section className="relative h-screen w-full flex flex-col justify-center items-center text-center px-6 z-20 pointer-events-none">
+        
+        {/* Section 4 Top Right Indicator */}
+        <div className="absolute top-6 right-6 text-stone-500 font-mono text-xs uppercase tracking-widest pointer-events-auto select-none">
+          // Section 4
+        </div>
+
+        {/* Section 4 Content */}
+        <div className="flex flex-col items-center animate-fadeIn">
+          <h2 className={`${orbitron.className} text-2xl md:text-5xl font-black tracking-[0.15em] text-white uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]`}>
+            Infinite Stars
+          </h2>
+          <p className="text-xs md:text-sm text-stone-400 font-light mt-4 max-w-md mx-auto leading-relaxed tracking-wider">
+            Beyond the planet, the interstellar void unfolds. Only the stars remain to guide your journey.
+          </p>
+        </div>
       </section>
 
       {/* PORTALS OVERLAY MODAL (Commented out)
