@@ -137,7 +137,7 @@ export default function EntryPortal() {
               We're just living in it
             </h2>
 
-            <div className="absolute bottom-16 flex flex-col items-center gap-1.5 animate-bounce select-none pointer-events-none">
+            <div className={`flex flex-col items-center gap-1.5 animate-bounce select-none pointer-events-none mt-16 transition-opacity duration-500 ${scrollProgress > 0.02 ? 'opacity-0' : 'opacity-100'}`}>
               <span className="text-[9px] font-black tracking-[0.3em] text-white/40 uppercase">Scroll Down</span>
               <span className="text-xs text-white/50">↓</span>
             </div>
